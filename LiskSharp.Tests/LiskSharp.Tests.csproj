@@ -40,12 +40,6 @@
     <Compile Include="TransactionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lisk.Core\LiskSharp.Core.csproj">
-      <Project>{1DAC9DE5-2C89-4BD3-9811-145C1D53CE8A}</Project>
-      <Name>LiskSharp.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
       <Private>False</Private>
