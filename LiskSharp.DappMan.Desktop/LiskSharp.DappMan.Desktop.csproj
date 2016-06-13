@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiskSharp.DappMan\LiskSharp.DappMan.csproj">
-      <Project>{7a2f1c0b-98a3-4402-948a-7bd89abe52b1}</Project>
+      <Project>{2414D091-BF71-4E77-9986-8A5CD5C0A079}</Project>
       <Name>LiskSharp.DappMan</Name>
     </ProjectReference>
   </ItemGroup>

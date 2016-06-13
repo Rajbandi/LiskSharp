@@ -48,6 +48,8 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Dapp.cs" />
     <Compile Include="Common\DappAsset.cs" />
+    <Compile Include="Common\DappConfig.cs" />
+    <Compile Include="Common\DappResult.cs" />
     <Compile Include="Common\DappTransactionBlock.cs" />
     <Compile Include="Common\DelegatesAssetCollection.cs" />
     <Compile Include="Common\DelegatesAsset.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Common\KeyPair.cs" />
     <Compile Include="Common\Transaction.cs" />
     <Compile Include="Common\TransactionType.cs" />
+    <Compile Include="Exceptions\DappException.cs" />
     <Compile Include="Exceptions\LiskSharpException.cs" />
     <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />

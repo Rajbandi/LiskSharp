@@ -13,7 +13,7 @@ namespace LiskSharp.DappMan.Web.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Dapps()
         {
             ViewData["Message"] = "Your application description page.";
 
@@ -24,6 +24,11 @@ namespace LiskSharp.DappMan.Web.Controllers
         {
             ViewData["Message"] = "Your contact page.";
 
+            return View();
+        }
+
+        public IActionResult CreateDapp()
+        {
             return View();
         }
 

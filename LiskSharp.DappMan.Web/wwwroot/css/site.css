@@ -26,7 +26,9 @@ textarea {
         font-size: 20px;
         line-height: 1.4;
     }
-
+    .body-content {
+        margin-top: 25px;
+    }
 @media (min-width: 768px) {
     .carousel-caption {
         z-index: 10 !important;

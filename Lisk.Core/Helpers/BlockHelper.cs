@@ -169,15 +169,15 @@ namespace LiskSharp.Core.Helpers
                     {
                         if (asset.Dapp.Name == dapp.Name )
                         {
-                            throw new LiskSharpException(string.Format("Dapp with name {0} already exist", dapp.Name));
+                            throw new DappException(string.Format("Dapp with name {0} already exist", dapp.Name));
                         }
                         if (asset.Dapp.Git == dapp.Git)
                         {
-                            throw new LiskSharpException(string.Format("Dapp with git {0} already exist", dapp.Git));
+                            throw new DappException(string.Format("Dapp with git {0} already exist", dapp.Git));
                         }
                         if (asset.Dapp.Link == dapp.Link)
                         {
-                            throw new LiskSharpException(string.Format("Dapp with link {0} already exist", dapp.Link));
+                            throw new DappException(string.Format("Dapp with link {0} already exist", dapp.Link));
                         }
                     }
                 }
