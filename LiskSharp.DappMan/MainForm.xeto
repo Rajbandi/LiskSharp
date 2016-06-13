@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form
+	xmlns="http://schema.picoe.ca/eto.forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="DappMan - Lisk Dapp Manager"
+	ClientSize="550, 350"	>
+  <TabControl>
+    <TabPage Text="Create Dapp">
+      <StackLayout HorizontalContentAlignment="Center" >
+        <Label>Create a Dapp</Label>
+        <TableLayout Padding="10" Spacing="10,10" Width="500" >
+          <TableLayout.Rows>
+            <TableRow >
+              <TableCell >
+                <Label Text="Name"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtName"></TextBox>
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+                <Label Text="Description"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtDescription"></TextBox>
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+                <Label Text="SDK Link"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtSdk"></TextBox>
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+                <Label Text="Git Link"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtLink"></TextBox>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell >
+                <Label Text="Secret"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtSecret"></TextBox>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell >
+                <Label Text="Public Keys"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <TextBox ID="TxtPublicKeys"></TextBox>
+              </TableCell>
+            </TableRow>
+
+            <TableRow >
+              <TableCell >
+                <Label Text="BlockChain"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <RadioButtonList ID="RadBlockChain">
+                  <ListItem Key="New" Text="New" ></ListItem>
+                  <ListItem Key="Append" Text="Append"></ListItem>
+                </RadioButtonList>
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+                <Label Text="Genesis Block"></Label>
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <RadioButtonList ID="RadGenesis">
+                  <ListItem Key="New" Text="New" ></ListItem>
+                  <ListItem Key="Append" Text="Append"></ListItem>
+                </RadioButtonList>
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >
+              </TableCell>
+              <TableCell ScaleWidth="True">
+                <StackLayout Orientation="Horizontal" Spacing="25">
+                  <Button Text="Clear"></Button>
+                  <Button Text="Create Dapp"></Button>
+                </StackLayout>
+              </TableCell>
+            </TableRow>
+          </TableLayout.Rows>
+        </TableLayout>
+      </StackLayout>
+    </TabPage>
+    <TabPage Text="Modify">
+      
+    </TabPage>
+  </TabControl>
+</Form>

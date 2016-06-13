@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1DAC9DE5-2C89-4BD3-9811-145C1D53CE8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LiskSharp.Core</RootNamespace>
+    <AssemblyName>LiskSharp.Core</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <ProjectReference Include="..\Chaos.NaCl.PCL\Chaos.NaCl.PCL.csproj">
+      <Project>{56A46349-EF5A-48AC-A6F0-CA00319F6014}</Project>
+      <Name>Chaos.NaCl.PCL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Account.cs" />
+    <Compile Include="Common\Address.cs" />
+    <Compile Include="Common\Asset.cs" />
+    <Compile Include="Common\Block.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\Dapp.cs" />
+    <Compile Include="Common\DappAsset.cs" />
+    <Compile Include="Common\DappTransactionBlock.cs" />
+    <Compile Include="Common\DelegatesAssetCollection.cs" />
+    <Compile Include="Common\DelegatesAsset.cs" />
+    <Compile Include="Common\DelegateUsername.cs" />
+    <Compile Include="Common\DelegateUsernameAsset.cs" />
+    <Compile Include="Common\DelegateVote.cs" />
+    <Compile Include="Common\DelegateVoteAsset.cs" />
+    <Compile Include="Common\GenesisBlock.cs" />
+    <Compile Include="Common\IAsset.cs" />
+    <Compile Include="Common\KeyPair.cs" />
+    <Compile Include="Common\Transaction.cs" />
+    <Compile Include="Common\TransactionType.cs" />
+    <Compile Include="Exceptions\LiskSharpException.cs" />
+    <Compile Include="Extensions\CommonExtensions.cs" />
+    <Compile Include="Helpers\AccountHelper.cs" />
+    <Compile Include="Helpers\BlockHelper.cs" />
+    <Compile Include="Helpers\CryptoHelper.cs" />
+    <Compile Include="Helpers\TransactionHelper.cs" />
+    <Compile Include="Helpers\DappHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NBitcoin, Version=3.0.0.34, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NBitcoin.3.0.0.34\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+    </Reference>
+    <Reference Include="NBitcoin.BouncyCastle, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NBitcoin.3.0.0.34\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lisk.Core.licenseheader" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
