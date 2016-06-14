@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
-namespace LiskSharp.DappMan.Web.Controllers
+namespace LiskSharp.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.DappMan", "LiskSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.DappMan.Desktop", "LiskSharp.DappMan.Desktop\LiskSharp.DappMan.Desktop.csproj", "{2900D36C-A704-47D7-B2EB-2F98DD3A40AC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LiskSharp.DappMan.Web", "LiskSharp.DappMan.Web\LiskSharp.DappMan.Web.xproj", "{8A4A4442-074B-43D8-96E2-C18F02977D7B}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LiskSharp.Web", "LiskSharp.DappMan.Web\LiskSharp.Web.xproj", "{8A4A4442-074B-43D8-96E2-C18F02977D7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.DappManCli", "LiskSharp.DappManCli\LiskSharp.DappManCli.csproj", "{D2E77A67-C250-4D7C-9A35-0678DC0B6215}"
 EndProject
