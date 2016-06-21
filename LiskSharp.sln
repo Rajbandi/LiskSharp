@@ -11,12 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.Core", "LiskSharp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.Tests", "LiskSharp.Tests\LiskSharp.Tests.csproj", "{60A4E724-99D3-4478-A817-CFB64829EF4C}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LiskSharp.DappMan", "LiskSharp.DappMan\LiskSharp.DappMan.shproj", "{5DD1C12A-092E-4FDA-9DFD-D7A1FA8D6E02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskSharp.DappMan", "LiskSharp.DappMan\LiskSharp.DappMan.csproj", "{BBA21A6B-592A-4D8F-B643-E954A8A4213F}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		LiskSharp.DappMan\LiskSharp.DappMan.projitems*{5dd1c12a-092e-4fda-9dfd-d7a1fa8d6e02}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -38,6 +35,10 @@ Global
 		{60A4E724-99D3-4478-A817-CFB64829EF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A4E724-99D3-4478-A817-CFB64829EF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A4E724-99D3-4478-A817-CFB64829EF4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA21A6B-592A-4D8F-B643-E954A8A4213F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA21A6B-592A-4D8F-B643-E954A8A4213F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA21A6B-592A-4D8F-B643-E954A8A4213F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA21A6B-592A-4D8F-B643-E954A8A4213F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

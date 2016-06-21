@@ -43,6 +43,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\BaseRequest.cs" />
+    <Compile Include="Api\BaseResponse.cs" />
+    <Compile Include="Api\Delegate.cs" />
+    <Compile Include="Api\DelegateRequest.cs" />
+    <Compile Include="Api\DelegateResponse.cs" />
+    <Compile Include="Api\DelegatesResponse.cs" />
+    <Compile Include="Api\LiskNodeApi.cs" />
+    <Compile Include="Api\ApiInfo.cs" />
+    <Compile Include="Api\PeerResponse.cs" />
+    <Compile Include="Api\PeersResponse.cs" />
+    <Compile Include="Api\VersionResponse.cs" />
     <Compile Include="Common\Account.cs" />
     <Compile Include="Common\Address.cs" />
     <Compile Include="Common\Asset.cs" />
@@ -63,6 +74,7 @@
     <Compile Include="Common\HttpOptions.cs" />
     <Compile Include="Common\IAsset.cs" />
     <Compile Include="Common\KeyPair.cs" />
+    <Compile Include="Common\Peer.cs" />
     <Compile Include="Common\Transaction.cs" />
     <Compile Include="Common\TransactionType.cs" />
     <Compile Include="Exceptions\DappException.cs" />
@@ -73,6 +85,7 @@
     <Compile Include="Helpers\BlockHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
+    <Compile Include="Helpers\PeerHelper.cs" />
     <Compile Include="Helpers\TransactionHelper.cs" />
     <Compile Include="Helpers\DappHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

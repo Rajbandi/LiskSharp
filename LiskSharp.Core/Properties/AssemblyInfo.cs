@@ -24,10 +24,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
 
-// Version information for an assembly consists of the following four values:
+// ApiVersion information for an assembly consists of the following four values:
 //
-//      Major Version
-//      Minor Version 
+//      Major ApiVersion
+//      Minor ApiVersion 
 //      Build Number
 //      Revision
 //

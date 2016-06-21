@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
-
-using NUnit.Framework;
+using System.Threading.Tasks;
 using LiskSharp.Core.Common;
 using LiskSharp.Core.Extensions;
+
+using System.IO.Compression;
+using System.Linq;
+using LiskSharp.DappMan.Common;
+using LiskSharp.DappMan.Helpers;
+using LiskSharp.Tests.Internals;
+using NUnit.Framework;
+
 
 namespace LiskSharp.Tests
 {
@@ -25,26 +33,21 @@ namespace LiskSharp.Tests
         }
 
         [Test]
-        public async void TestSdkLink()
+        public static async void TestSdkLink()
         {
-            var client = new HttpClient();
-            var progress = new Progress<double>();
-            progress.ProgressChanged += (sender, d) =>
-            {
-                Debug.WriteLine("\r%{0:N0}", d);
+            var gitUrl = "https://github.com/LiskHQ/lisk-dapps-sdk";
+            var repoName = gitUrl.Split("/".ToCharArray()).Last() + "-development";
 
-            };
-            var options = new HttpOptions
+            await DappManHelper.DownloadSdk(new GitOptions
             {
-                Url = "https://github.com/LiskHQ/lisk-dapps-sdk/archive/development.zip",
-                Token = new CancellationToken(),
-                Progress = progress
-            };
-            var fileBytes = await client.DownloadFileAsync(options);
-
-            Debug.WriteLine(fileBytes.Length);
+                FileName = repoName,
+                GitUrl = gitUrl,
+                ReplaceExisting = true,
+                RootFolder = "c:\\Temp"
+            });
         }
 
+        
         [Test]
         public async void TestLocalStorage()
         {
