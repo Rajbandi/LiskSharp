@@ -10,6 +10,8 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using LiskSharp.Core.Api.Messages;
+using LiskSharp.Core.Api.Models;
 using LiskSharp.Core.Common;
 using LiskSharp.Core.Extensions;
 
@@ -718,7 +720,28 @@ namespace LiskSharp.Core.Api
             return response;
         }
 
+        /// <summary>
+        /// Opens an account session
+        /// </summary>
+        /// <returns>OpenAccountResponse with account details</returns>
+        public OpenAccountResponse OpenAccount(OpenAccountRequest acc)
+        {
+            var response = OpenAccountAsync(acc).GetAwaiter().GetResult();
 
+            return response;
+        }
+
+        /// <summary>
+        /// Opens an account session
+        /// </summary>
+        /// <returns>OpenAccountResponse with account details</returns>
+        public async Task<OpenAccountResponse> OpenAccountAsync(OpenAccountRequest acc)
+        {
+            _url.Path = Constants.ApiPostAccountOpen;
+            var response = await _client.PostJsonAsync<OpenAccountRequest, OpenAccountResponse>(_url.ToString(),  acc);
+            ResetPath();
+            return response;
+        }
 
         #endregion
 

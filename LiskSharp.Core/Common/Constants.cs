@@ -54,6 +54,7 @@ namespace LiskSharp.Core.Common
         public const string ApiGetAccountDelegatesFee = "/api/accounts/delegates/fee";
         public const string ApiGetAccountPublickey = "/api/accounts/getPublickey";
         public const string ApiGetAccountBalance = "/api/accounts/getBalance";
+        public const string ApiPostAccountOpen = "/api/accounts/open";
 
         public const string ApiGetSignatureFee = "/api/signatures/fee";
 

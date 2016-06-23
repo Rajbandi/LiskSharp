@@ -34,5 +34,23 @@ namespace LiskSharp.Core.Extensions
             return default(T);
         }
 
+        public static async Task PostJsonAsync<T>(this HttpClient client, string url, T req)
+        {
+            var result = await client.PostAsync(url, new StringContent(req.ToString(), Encoding.UTF8, "application/json"));
+            result.EnsureSuccessStatusCode();
+        }
+
+        public static async Task<T2> PostJsonAsync<T1,T2>(this HttpClient client, string url, T1 req)
+        {
+            var result = await client.PostAsync(url, new StringContent(req.ToString(),Encoding.UTF8, "application/json"));
+            result.EnsureSuccessStatusCode();
+            if (result.Content != null)
+            {
+                var json = await result.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T2>(json);
+            }
+            return default(T2);
+        }
+
     }
 }

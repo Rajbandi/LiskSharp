@@ -8,6 +8,7 @@
 // <summary></summary>
 #endregion
 using System.Threading.Tasks;
+using LiskSharp.Core.Api.Messages;
 
 namespace LiskSharp.Core.Api
 {
@@ -363,5 +364,17 @@ namespace LiskSharp.Core.Api
         /// </summary>
         /// <returns>AccountDelegatesFeeResponse with delegates fee</returns>
         Task<FeeResponse> GetAccountDelegatesFeeAsync(AccountRequest acc);
+
+        /// <summary>
+        /// Opens an account session
+        /// </summary>
+        /// <returns>OpenAccountResponse with account details</returns>
+        OpenAccountResponse OpenAccount(OpenAccountRequest acc);
+
+        /// <summary>
+        /// Opens an account session
+        /// </summary>
+        /// <returns>OpenAccountResponse with account details</returns>
+        Task<OpenAccountResponse> OpenAccountAsync(OpenAccountRequest acc);
     }
 }

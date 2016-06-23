@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using LiskSharp.Core.Api;
+using LiskSharp.Core.Api.Messages;
+using LiskSharp.Core.Api.Models;
 using NUnit.Framework;
 
 namespace LiskSharp.Tests
@@ -17,7 +19,11 @@ namespace LiskSharp.Tests
             {
                 UseHttps = true
             });
-
+            var response =  _api.OpenAccount(new OpenAccountRequest
+            {
+                Secret = "cabbage chief join task universe hello grab slush page exit update brisk"
+            });
+            Debug.WriteLine("Account open {0}",response);
         }
 
         #region Peer related tests
@@ -191,62 +197,80 @@ namespace LiskSharp.Tests
          * Disabling account tests due to session problems.
          * Lisk node requires account to be opened prior using any account related api either 
          * through web interface or /api/accounts/open. These tests always fail.
-         * Furture work includes opening an account. 
+         * Furture work includes opening an account. */
+
         [Test]
+        [Category("Account")]
+        public async void OpenAccount()
+        {
+            var response = await _api.OpenAccountAsync(new OpenAccountRequest
+            {
+                Secret= "cabbage chief join task universe hello grab slush page exit update brisk"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        [Category("Account")]
         public async void GetAccount()
         {
             var response = await _api.GetAccountAsync(new AccountRequest
             {
-                Address = "6391094591604124399L"
+                Address = "10861956178781184496L"
             });
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
 
         [Test]
+        [Category("Account")]
         public async void GetAccountBalance()
         {
             var response = await _api.GetAccountBalanceAsync(new AccountRequest
             {
-                Address = "6391094591604124399L"
+                Address = "10861956178781184496L"
             });
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
 
         [Test]
+        [Category("Account")]
         public async void GetAccountPublicKey()
         {
             var response = await _api.GetAccountPublickeyAsync(new AccountRequest
             {
-                Address = "6391094591604124399L"
+                Address = "10861956178781184496L"
             });
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
 
         [Test]
+        [Category("Account")]
         public async void GetAccountDelegates()
         {
             var response = await _api.GetAccountDelegatesAsync(new AccountRequest
             {
-                Address = "15476181414604660810L"
+                Address = "10861956178781184496L"
             });
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
 
         [Test]
+        [Category("Account")]
         public async void GetAccountDelegatesFee()
         {
             var response = await _api.GetAccountDelegatesFeeAsync(new AccountRequest
             {
-                Address = "15476181414604660810L"
+                Address = "10861956178781184496L"
             });
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
-        */
+        
         #endregion
 
         #region Transaction related tests
@@ -276,7 +300,7 @@ namespace LiskSharp.Tests
             Debug.WriteLine(response);
             Assert.IsTrue(response.Success);
         }
-
+        /*
         [Test]
         public async void GetUnconfirmedTransaction()
         {
@@ -296,7 +320,7 @@ namespace LiskSharp.Tests
             else
                 Assert.Pass("No unconfirmed transactions found");
         }
-
+        */
         
         #endregion
     }
