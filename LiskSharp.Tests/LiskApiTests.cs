@@ -1,14 +1,15 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using LiskSharp.Core.Api;
-using LiskSharp.Core.Common;
 using NUnit.Framework;
 
 namespace LiskSharp.Tests
 {
     [TestFixture]
-    public  class LiskApiTests
+    public class LiskApiTests
     {
-        private LiskNodeApi _api;
+        LiskNodeApi _api;
+
         [TestFixtureSetUp]
         public void Init()
         {
@@ -26,17 +27,19 @@ namespace LiskSharp.Tests
         {
             var peers = await _api.GetPeersAsync();
             Debug.WriteLine(peers);
+            Assert.IsTrue(peers.Success);
         }
 
         [Test]
         public async void GetPeerTest()
         {
-            var peer = await _api.GetPeerAsync(new Peer
+            var peer = await _api.GetPeerAsync(new PeerRequest
             {
-                IpAddress = "104.251.218.222",
-                Port = 8000
+                Ip = "104.251.218.222",
+                Port = "8000"
             });
             Debug.WriteLine(peer);
+            Assert.IsTrue(peer.Success);
         }
 
         [Test]
@@ -44,6 +47,7 @@ namespace LiskSharp.Tests
         {
             var version = await _api.GetVersionAsync();
             Debug.WriteLine(version);
+            Assert.IsTrue(version.Success);
         }
         #endregion
 
@@ -54,8 +58,235 @@ namespace LiskSharp.Tests
         {
             var response = await _api.GetDelegatesAsync();
             Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetDelegate()
+        {
+            var response = await _api.GetDelegateAsync(new DelegateRequest
+            {
+                Username = "genesis_97"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetDelegateFee()
+        {
+            var response = await _api.GetDelegateFeeAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetDelegateVoters()
+        {
+            var response = await _api.GetDelegateVotersAsync(new DelegateVotersRequest
+            {
+                PublicKey = "12b499298c5b15da545839aff50406f2a1ab0ee1ce66c31ff284e7d8e10a9b70"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
         }
         #endregion
 
+        #region Signature related tests
+
+        [Test]
+        public async void GetSignatureFee()
+        {
+            var response = await _api.GetSignatureFeeAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        #endregion
+
+        #region Blocks related tests
+        [Test]
+        public async void GetBlocks()
+        {
+
+            var response = await _api.GetBlocksAsync(new BlocksRequest
+            {
+
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlock()
+        {
+            var response = await _api.GetBlockAsync(new BlockRequest
+            {
+                Id = "15583964572759425589"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockFee()
+        {
+            var response = await _api.GetBlockFeeAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockFees()
+        {
+            var response = await _api.GetBlockFeesAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockReward()
+        {
+            var response = await _api.GetBlockRewardAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockNethash()
+        {
+            var response = await _api.GetBlockNetHashAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockSupply()
+        {
+            var response = await _api.GetBlockSupplyAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockStatus()
+        {
+            var response = await _api.GetBlockStatusAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetBlockMilestone()
+        {
+            var response = await _api.GetBlockMilestoneAsync();
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        #endregion
+
+        #region Accounts related tests
+        [Test]
+        public async void GetAccount()
+        {
+            var response = await _api.GetAccountAsync(new AccountRequest
+            {
+                Address = "6391094591604124399L"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetAccountBalance()
+        {
+            var response = await _api.GetAccountBalanceAsync(new AccountRequest
+            {
+                Address = "6391094591604124399L"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetAccountPublicKey()
+        {
+            var response = await _api.GetAccountPublickeyAsync(new AccountRequest
+            {
+                Address = "6391094591604124399L"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetAccountDelegates()
+        {
+            var response = await _api.GetAccountDelegatesAsync(new AccountRequest
+            {
+                Address = "15476181414604660810L"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetAccountDelegatesFee()
+        {
+            var response = await _api.GetAccountDelegatesFeeAsync(new AccountRequest
+            {
+                Address = "15476181414604660810L"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+        #endregion
+
+        #region Transaction related tests
+        [Test]
+        public async void GetTransactions()
+        {
+            var response = await _api.GetTransactionsAsync(new TransactionsRequest());
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetTransaction()
+        {
+            var response = await _api.GetTransactionAsync(new TransactionRequest
+            {
+                Id = "15748634892930294330"
+            });
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetUnconfirmedTransactionsNoFilter()
+        {
+            var response = await _api.GetUnconfirmedTransactionsAsync(new UnconfirmedTransactionsRequest());
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        [Test]
+        public async void GetUnconfirmedTransaction()
+        {
+            var transactions = await _api.GetUnconfirmedTransactionsAsync(new UnconfirmedTransactionsRequest());
+            Assert.IsTrue(transactions != null && transactions.Success, "GetTransactions not successful");
+            Assert.IsTrue(transactions.Transactions != null && transactions.Transactions.Count >0, "No unconfirmed transactions found.");
+            var response = await _api.GetUnconfirmedTransactionAsync(new TransactionRequest
+            {
+                Id= transactions.Transactions.First().Id
+            });
+
+            Debug.WriteLine(response);
+            Assert.IsTrue(response.Success);
+        }
+
+        
+        #endregion
     }
 }

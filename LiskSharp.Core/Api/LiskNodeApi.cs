@@ -1,8 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#region copyright
+// <copyright file="lisknodeapi.cs" >
+// Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
+// </copyright>
+// <author>Raj Bandi</author>
+// <date>23/6/2016</date>
+// <summary></summary>
+#endregion
+using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using LiskSharp.Core.Common;
 using LiskSharp.Core.Extensions;
@@ -13,7 +19,7 @@ namespace LiskSharp.Core.Api
     /// LiskApi contains equivalent api calls functionality of remote node.
     /// Use this api to access remote node api functionality
     /// </summary>
-    public class LiskNodeApi
+    public class LiskNodeApi : ILiskNodeApi
     {
         private readonly UriBuilder _url;
 
@@ -39,18 +45,18 @@ namespace LiskSharp.Core.Api
         /// <summary>
         /// Get all delegates from a node synchronously 
         /// </summary>
-        /// <returns>Peers response with peer list</returns>
+        /// <returns>DelegatesResponse with delegates</returns>
         public DelegatesResponse GetDelegates()
         {
             var response = GetDelegatesAsync().GetAwaiter().GetResult();
             return response;
         }
 
-        
+
         /// <summary>
-        /// Get all delegates from a node synchronously 
+        /// Get all delegates from a node asynchronously 
         /// </summary>
-        /// <returns>Peers response with peer list</returns>
+        /// <returns>DelegatesResponse with delegates</returns>
         public async Task<DelegatesResponse> GetDelegatesAsync()
         {
             _url.Path = Constants.ApiGetDelegates;
@@ -59,6 +65,94 @@ namespace LiskSharp.Core.Api
             return response;
         }
 
+        /// <summary>
+        /// Get a delegate from given parameters synchronously 
+        /// </summary>
+        /// <returns>DelegatesResponse with delegates</returns>
+        public DelegateResponse GetDelegate(DelegateRequest req)
+        {
+            var response = GetDelegateAsync(req).GetAwaiter().GetResult();
+
+            return response;
+        }
+        /// <summary>
+        /// Get a delegate from given parameters asynchronously 
+        /// </summary>
+        /// <returns>DelegatesResponse with delegates</returns>
+        public async Task<DelegateResponse> GetDelegateAsync(DelegateRequest req)
+        {
+            _url.Path = Constants.ApiGetDelegate;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<DelegateResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate fee from a node synchronously 
+        /// </summary>
+        /// <returns>DelegatesFeeResponse with fee</returns>
+        public FeeResponse GetDelegateFee()
+        {
+            var response = GetDelegateFeeAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate fee from a node asynchronously 
+        /// </summary>
+        /// <returns>DelegatesFeeResponse with fee</returns>
+        public async Task<FeeResponse> GetDelegateFeeAsync()
+        {
+            _url.Path = Constants.ApiGetDelegateFee;
+            var response = await _client.GetJsonAsync<FeeResponse>(_url.ToString());
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate votes from a public key synchronously 
+        /// </summary>
+        /// <returns>DelegateVotersResponse with voters</returns>
+        public DelegateVotersResponse GetDelegateVoters(DelegateVotersRequest req)
+        {
+            var response = GetDelegateVotersAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate votes from a public key asynchronously 
+        /// </summary>
+        /// <returns>DelegateVotersResponse with voters</returns>
+        public async Task<DelegateVotersResponse> GetDelegateVotersAsync(DelegateVotersRequest req)
+        {
+            _url.Path = Constants.ApiGetDelegateVoters;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<DelegateVotersResponse>(_url.ToString());
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate forging account from a public key synchronously 
+        /// </summary>
+        /// <returns>DelegateForgingAccountResponse with account details</returns>
+        public DelegateForgingAccountResponse GetDelegateForgingAccount(DelegateForgingAccountRequest req)
+        {
+            var response = GetDelegateForgingAccountAsync(req).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Get all delegate forging account from a public key asynchronously 
+        /// </summary>
+        /// <returns>DelegateForgingAccountResponse with account details</returns>
+        public async Task<DelegateForgingAccountResponse> GetDelegateForgingAccountAsync(DelegateForgingAccountRequest req)
+        {
+            _url.Path = Constants.ApiGetDelegateForgeAccount;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<DelegateForgingAccountResponse>(_url.ToString());
+            return response;
+        }
         #endregion
 
         #region Peer related api 
@@ -91,7 +185,7 @@ namespace LiskSharp.Core.Api
         /// Get single peer related information from node synchronously
         /// </summary>
         /// <returns></returns>
-        public PeerResponse GetPeer(Peer peer)
+        public PeerResponse GetPeer(PeerRequest peer)
         {
             var peerResponse = GetPeerAsync(peer).GetAwaiter().GetResult();
             return peerResponse;
@@ -101,13 +195,12 @@ namespace LiskSharp.Core.Api
         /// Get single peer related information from node asynchronously
         /// </summary>
         /// <returns></returns>
-        public async Task<PeerResponse> GetPeerAsync(Peer peer)
+        public async Task<PeerResponse> GetPeerAsync(PeerRequest peer)
         {
             _url.Path = Constants.ApiGetPeer;
-            _url.Query = string.Format("ip={0}&port={1}", peer.IpAddress, peer.Port);
+            _url.Query = peer.ToQuery();
 
             var peerResponse = await _client.GetJsonAsync<PeerResponse>(_url.ToString());
-
             ResetPath();
 
             return peerResponse;
@@ -137,6 +230,496 @@ namespace LiskSharp.Core.Api
 
             return peerResponse;
         }
+        #endregion
+
+        #region Block related api
+
+        /// <summary>
+        /// Gets list of block synchronously  
+        /// </summary>
+        /// <param name="req">BlocksRequest</param>
+        /// <returns>BlocksResponse with blocks list</returns>
+        public BlocksResponse GetBlocks(BlocksRequest req)
+        {
+            return GetBlocksAsync(req).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Gets list of blocks asynchronously 
+        /// </summary>
+        /// <param name="req">BlocksRequest</param>
+        /// <returns>BlocksResponse with blocks list</returns>
+        public async Task<BlocksResponse> GetBlocksAsync(BlocksRequest req)
+        {
+            _url.Path = Constants.ApiGetBlocks;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<BlocksResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets a block by id synchronously
+        /// path: /api/blocks/get
+        /// </summary>
+        /// <param name="req">BlockRequest</param>
+        /// <returns>BlockResponse with block details</returns>
+        public BlockResponse GetBlock(BlockRequest req)
+        {
+            var response = GetBlockAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets a block by id
+        /// path: /api/blocks/get
+        /// </summary>
+        /// <param name="req">BlockRequest</param>
+        /// <returns>BlockResponse with block details</returns>
+        public async Task<BlockResponse> GetBlockAsync(BlockRequest req)
+        {
+            _url.Path = Constants.ApiGetBlocksBlock;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<BlockResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the block fee synchronously
+        /// </summary>
+        /// <returns>BlocksFeeResponse with fee details</returns>
+        public FeeResponse GetBlockFee()
+        {
+            var response = GetBlockFeeAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the block fee asynchronously
+        /// </summary>
+        /// <returns>BlocksFeeResponse with fee details</returns>
+        public async Task<FeeResponse> GetBlockFeeAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksFee;
+            var response = await _client.GetJsonAsync<FeeResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks fee synchronously
+        /// </summary>
+        /// <returns>BlocksFeesResponse with fees details</returns>
+        public BlockFeesResponse GetBlockFees()
+        {
+            var response = GetBlockFeesAsync().GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks fee asynchronously
+        /// </summary>
+        /// <returns>BlocksFeesResponse with fees details</returns>
+        public async Task<BlockFeesResponse> GetBlockFeesAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksFees;
+            var response = await _client.GetJsonAsync<BlockFeesResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets block height synchronously
+        /// </summary>
+        /// <returns>BlocksHeightResponse with height details</returns>
+        public BlockHeightResponse GetBlockHeight()
+        {
+            var response = GetBlockHeightAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets block height asynchronously
+        /// </summary>
+        /// <returns>BlocksHeightResponse with height details</returns>
+        public async Task<BlockHeightResponse> GetBlockHeightAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksHeight;
+            var response = await _client.GetJsonAsync<BlockHeightResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks net hash synchronously
+        /// </summary>
+        /// <returns>BlocksNethashResponse with net hash details</returns>
+        public BlockNethashResponse GetBlockNetHash()
+        {
+            var response = GetBlockNetHashAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks net hash asynchronously
+        /// </summary>
+        /// <returns>BlocksNethashResponse with net hash details</returns>
+        public async Task<BlockNethashResponse> GetBlockNetHashAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksNethash;
+            var response = await _client.GetJsonAsync<BlockNethashResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks milestone synchronously
+        /// </summary>
+        /// <returns>BlocksMilestoneResponse with milestone details</returns>
+        public BlockMilestoneResponse GetBlockMilestone()
+        {
+            var response = GetBlockMilestoneAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks milestone asynchronously
+        /// </summary>
+        /// <returns>BlocksMilestoneResponse with milestone details</returns>
+        public async Task<BlockMilestoneResponse> GetBlockMilestoneAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksMilestone;
+            var response = await _client.GetJsonAsync<BlockMilestoneResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks reward synchronously
+        /// </summary>
+        /// <returns>BlocksRewardResponse with reward details</returns>
+        public BlockRewardResponse GetBlockReward()
+        {
+            var response = GetBlockRewardAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks reward asynchronously
+        /// </summary>
+        /// <returns>BlocksRewardResponse with reward details</returns>
+        public async Task<BlockRewardResponse> GetBlockRewardAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksReward;
+            var response = await _client.GetJsonAsync<BlockRewardResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks supply asynchronously
+        /// </summary>
+        /// <returns>BlocksSupplyResponse with supply details</returns>
+        public BlockSupplyResponse GetBlockSupply()
+        {
+            var response = GetBlockSupplyAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets blocks supply asynchronously
+        /// </summary>
+        /// <returns>BlocksSupplyResponse with supply details</returns>
+        public async Task<BlockSupplyResponse> GetBlockSupplyAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksSupply;
+            var response = await _client.GetJsonAsync<BlockSupplyResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+
+        /// <summary>
+        /// Gets blocks status synchronously
+        /// </summary>
+        /// <returns>BlocksStatusResponse with status</returns>
+        public BlockStatusResponse GetBlockStatus()
+        {
+            var response = GetBlockStatusAsync().GetAwaiter().GetResult();
+            return response;
+        }
+        /// <summary>
+        /// Gets blocks status asynchronously
+        /// </summary>
+        /// <returns>BlocksStatusResponse with status</returns>
+        public async Task<BlockStatusResponse> GetBlockStatusAsync()
+        {
+            _url.Path = Constants.ApiGetBlocksStatus;
+            var response = await _client.GetJsonAsync<BlockStatusResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        #endregion
+
+        #region Signature related api
+
+        /// <summary>
+        /// Gets signature fee asynchronously
+        /// </summary>
+        /// <returns>FeeResponse with fee details</returns>
+        public FeeResponse GetSignatureFee()
+        {
+            var response = GetSignatureFeeAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets signature fee asynchronously
+        /// </summary>
+        /// <returns>FeeResponse with fee details</returns>
+        public async Task<FeeResponse> GetSignatureFeeAsync()
+        {
+            _url.Path = Constants.ApiGetSignatureFee;
+            var response = await _client.GetJsonAsync<FeeResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        #endregion
+
+        #region Transactions related api
+
+        /// <summary>
+        /// Gets a transaction by a given id synchronously
+        /// </summary>
+        /// <returns>TransactionResponse with transaction details</returns>
+        public TransactionResponse GetTransaction(TransactionRequest req)
+        {
+            var response = GetTransactionAsync(req).GetAwaiter().GetResult();
+            
+            return response;
+        }
+
+        /// <summary>
+        /// Gets a transaction by a given id asynchronously
+        /// </summary>
+        /// <returns>TransactionResponse with transaction details</returns>
+        public async Task<TransactionResponse> GetTransactionAsync(TransactionRequest req)
+        {
+            _url.Path = Constants.ApiGetTransaction;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<TransactionResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets all the transactions synchronously
+        /// </summary>
+        /// <returns>TransactionsResponse with transactions list</returns>
+        public TransactionsResponse GetTransactions(TransactionsRequest req)
+        {
+            var response = GetTransactionsAsync(req).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets all the transactions asynchronously
+        /// </summary>
+        /// <returns>TransactionsResponse with transactions list</returns>
+        public async Task<TransactionsResponse> GetTransactionsAsync(TransactionsRequest req)
+        {
+            _url.Path = Constants.ApiGetTransactions;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<TransactionsResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets all the unconfirmed transactions synchronously
+        /// </summary>
+        /// <returns>TransactionResponse with transactions list</returns>
+        public TransactionsResponse GetUnconfirmedTransactions(UnconfirmedTransactionsRequest req)
+        {
+            var response = GetUnconfirmedTransactionsAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+        /// <summary>
+        /// Gets all the unconfirmed transactions asynchronously
+        /// </summary>
+        /// <returns>TransactionResponse with unconfirmed transactions list</returns>
+        public async Task<TransactionsResponse> GetUnconfirmedTransactionsAsync(UnconfirmedTransactionsRequest req)
+        {
+            _url.Path = Constants.ApiGetUnconfirmedTransactions;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<TransactionsResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets a unconfirmed transaction by a given id synchronously
+        /// </summary>
+        /// <returns>TransactionResponse with unconfirmed transaction details</returns>
+        public TransactionResponse GetUnconfirmedTransaction(TransactionRequest req)
+        {
+            var response = GetUnconfirmedTransactionAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets a unconfirmed transaction by a given id asynchronously
+        /// </summary>
+        /// <returns>TransactionResponse with unconfirmed transaction details</returns>
+        public async Task<TransactionResponse> GetUnconfirmedTransactionAsync(TransactionRequest req)
+        {
+            _url.Path = Constants.ApiGetUnconfirmedTransaction;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<TransactionResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        #endregion
+
+        #region Account related api
+
+        /// <summary>
+        /// Gets account details from a given address synchronously
+        /// Only applicable when account session is already opened with /account/open
+        /// Otherwise return null.
+        /// </summary>
+        /// <returns>AccountResponse with account details</returns>
+        public AccountResponse GetAccount(AccountRequest acc)
+        {
+            var response = GetAccountAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account details from a given address asynchronously
+        /// Only applicable when account session is already opened with /account/open
+        /// Otherwise return null.
+        /// </summary>
+        /// <returns>AccountResponse with account details</returns>
+        public async Task<AccountResponse> GetAccountAsync(AccountRequest acc)
+        {
+            _url.Path = Constants.ApiGetAccount;
+            _url.Query = acc.ToQuery();
+            var response = await _client.GetJsonAsync<AccountResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account balance from a given address synchronously
+        /// </summary>
+        /// <returns>AccountBalanceResponse with balance</returns>
+        public AccountBalanceResponse GetAccountBalance(AccountRequest acc)
+        {
+            var response = GetAccountBalanceAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account balance from a given address asynchronously
+        /// </summary>
+        /// <returns>AccountBalanceResponse with balance</returns>
+        public async Task<AccountBalanceResponse> GetAccountBalanceAsync(AccountRequest acc)
+        {
+            _url.Path = Constants.ApiGetAccountBalance;
+            _url.Query = acc.ToQuery();
+            var response = await _client.GetJsonAsync<AccountBalanceResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account public key from a given address synchronously. 
+        /// Only applicable when account session is already opened with /account/open
+        /// Otherwise return empty.
+        /// </summary>
+        /// <returns>AccountBalanceResponse with public key</returns>
+        public AccountPublickeyResponse GetAccountPublickey(AccountRequest acc)
+        {
+            var response = GetAccountPublickeyAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account public key from a given address asynchronously. 
+        /// Only applicable when account session is already opened with /account/open
+        /// Otherwise return empty.
+        /// Alternatively, go to login.lisk.io, open your address. Run this api method.
+        /// </summary>
+        /// <returns>AccountBalanceResponse with public key</returns>
+        public async Task<AccountPublickeyResponse> GetAccountPublickeyAsync(AccountRequest acc)
+        {
+            _url.Path = Constants.ApiGetAccountPublickey;
+            _url.Query = acc.ToQuery();
+            var response = await _client.GetJsonAsync<AccountPublickeyResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account delegates from a given address synchronously. 
+        /// </summary>
+        /// <returns>AccountBalanceResponse with delegates</returns>
+        public AccountDelegatesResponse GetAccountDelegates(AccountRequest acc)
+        {
+            var response = GetAccountDelegatesAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account delegates from a given address asynchronously. 
+        /// </summary>
+        /// <returns>AccountBalanceResponse with delegates</returns>
+        public async Task<AccountDelegatesResponse> GetAccountDelegatesAsync(AccountRequest acc)
+        {
+            _url.Path = Constants.ApiGetAccountDelegates;
+            _url.Query = acc.ToQuery();
+            var response = await _client.GetJsonAsync<AccountDelegatesResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account delegates fee from a given address synchronously. 
+        /// </summary>
+        /// <returns>AccountDelegatesFeeResponse with delegates fee</returns>
+        public FeeResponse GetAccountDelegatesFee(AccountRequest acc)
+        {
+            var response = GetAccountDelegatesFeeAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets account delegates fee from a given address asynchronously. 
+        /// </summary>
+        /// <returns>AccountDelegatesFeeResponse with delegates fee</returns>
+        public async Task<FeeResponse> GetAccountDelegatesFeeAsync(AccountRequest acc)
+        {
+            _url.Path = Constants.ApiGetAccountDelegatesFee;
+            _url.Query = acc.ToQuery();
+            var response = await _client.GetJsonAsync<FeeResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+
+
         #endregion
 
         #region private methods

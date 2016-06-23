@@ -3,6 +3,7 @@ extensions: .cs .cpp .h
 #region copyright
 // <copyright file="%FileName%" >
 // Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
 // </copyright>
 // <author>Raj Bandi</author>
 // <date>%CurrentDay%/%CurrentMonth%/%CurrentYear%</date>

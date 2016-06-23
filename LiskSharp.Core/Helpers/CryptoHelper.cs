@@ -1,4 +1,13 @@
-﻿using System.Linq;
+﻿#region copyright
+// <copyright file="CryptoHelper.cs" >
+// Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
+// </copyright>
+// <author>Raj Bandi</author>
+// <date>23/6/2016</date>
+// <summary></summary>
+#endregion
+using System.Linq;
 using System.Text;
 using Chaos.NaCl;
 using LiskSharp.Core.Common;
