@@ -281,15 +281,20 @@ namespace LiskSharp.Tests
         public async void GetUnconfirmedTransaction()
         {
             var transactions = await _api.GetUnconfirmedTransactionsAsync(new UnconfirmedTransactionsRequest());
-            Assert.IsTrue(transactions != null && transactions.Success, "GetTransactions not successful");
-            Assert.IsTrue(transactions.Transactions != null && transactions.Transactions.Count >0, "No unconfirmed transactions found.");
-            var response = await _api.GetUnconfirmedTransactionAsync(new TransactionRequest
+            if (transactions != null && transactions.Success && transactions.Transactions != null &&
+                transactions.Transactions.Count > 0)
             {
-                Id= transactions.Transactions.First().Id
-            });
 
-            Debug.WriteLine(response);
-            Assert.IsTrue(response.Success);
+                var response = await _api.GetUnconfirmedTransactionAsync(new TransactionRequest
+                {
+                    Id = transactions.Transactions.First().Id
+                });
+
+                Debug.WriteLine(response);
+                Assert.IsTrue(response.Success);
+            }
+            else
+                Assert.Pass("No unconfirmed transactions found");
         }
 
         
