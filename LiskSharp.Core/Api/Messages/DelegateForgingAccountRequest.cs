@@ -7,16 +7,14 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     public class DelegateForgingAccountRequest : BaseRequest
     {
+        [QueryParam(Name = "generatorPublicKey")]
         public string GeneratorPublickey { get; set; }
-
-        public override string ToQuery()
-        {
-            QueryParams.Add($"generatorPublicKey={GeneratorPublickey}");
-            return base.ToQuery();
-        }
     }
 }

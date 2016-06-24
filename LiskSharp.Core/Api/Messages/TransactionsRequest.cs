@@ -7,58 +7,38 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     public class TransactionsRequest : BaseRequest
     {
+        [QueryParam(Name="senderPublicKey")]
         public string SenderPublickey { get; set; }
 
+        [QueryParam(Name="ownerPublicKey")]
         public string OwnerPublicKey { get; set; }
 
+        [QueryParam(Name="ownerAddress")]
         public string OwnerAddress { get; set; }
 
+        [QueryParam(Name="senderId")]
         public string SenderId { get; set; }
 
+        [QueryParam(Name="recipientId")]
         public string RecipientId { get; set; }
 
+        [QueryParam(Name="amount")]
         public long? Amount { get; set; }
 
+        [QueryParam(Name="fee")]
         public int? Fee { get; set; }
 
+        [QueryParam(Name="type")]
         public int? Type { get; set; }
 
+        [QueryParam(Name="blockId")]
         public string BlockId { get; set; }
-
-        public override string ToQuery()
-        {
-            if(!string.IsNullOrWhiteSpace(BlockId))
-                QueryParams.Add($"blockId={BlockId}");
-
-            if(!string.IsNullOrWhiteSpace(SenderPublickey))
-                QueryParams.Add($"senderPublicKey={SenderPublickey}");
-
-            if(!string.IsNullOrWhiteSpace(OwnerPublicKey))
-                QueryParams.Add($"ownerPublicKey={OwnerPublicKey}");
-
-            if(!string.IsNullOrWhiteSpace(OwnerAddress))
-                QueryParams.Add($"ownerAddress={OwnerAddress}");
-
-            if(!string.IsNullOrWhiteSpace(SenderId))
-                QueryParams.Add($"senderId={SenderId}");
-
-            if(!string.IsNullOrWhiteSpace(RecipientId))
-                QueryParams.Add($"recipientId={RecipientId}");
-
-            if(Amount.HasValue)
-                QueryParams.Add($"amount={Amount}");
-
-            if(Fee.HasValue)
-                QueryParams.Add($"fee={Fee}");
-
-            if(Type.HasValue)
-                QueryParams.Add($"type={Type}");
-            
-            return base.ToQuery();
-        }
     }
 }

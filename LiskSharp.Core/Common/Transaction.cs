@@ -46,6 +46,9 @@ namespace LiskSharp.Core.Common
         [DataMember(Name = "senderPublicKey")]
         public string SenderPublicKey { get; set; }
 
+        [DataMember(Name = "requesterPublicKey")]
+        public string RequesterPublicKey { get; set; }
+
         [DataMember(Name = "asset")]
         public Asset Asset { get; set; }
 

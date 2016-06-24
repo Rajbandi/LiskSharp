@@ -7,6 +7,9 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     /// <summary>
@@ -15,52 +18,22 @@ namespace LiskSharp.Core.Api.Messages
     /// </summary>
     public class BlocksRequest : BaseRequest
     {
+        [QueryParam(Name= "generatorPublicKey")]
         public string GeneratorPublickey { get; set; }
 
+        [QueryParam(Name = "totalAmount")]
         public long? TotalAmount { get; set; }
 
+        [QueryParam(Name = "totalFee")]
         public int? TotalFee { get; set; }
 
+        [QueryParam(Name = "reward")]
         public int? Reward { get; set; }
 
+        [QueryParam(Name = "previousBlock")]
         public string PreviousBlock { get; set; }
 
+        [QueryParam(Name = "height")]
         public int? Height { get; set; }
-
-
-        public override string ToQuery()
-        {
-            if (!string.IsNullOrWhiteSpace(GeneratorPublickey))
-            {
-                QueryParams.Add($"generatorpublickey={GeneratorPublickey}");
-            }
-
-            if (TotalAmount.HasValue)
-            {
-                QueryParams.Add($"totalAmount={TotalAmount}");
-            }
-
-            if (TotalFee.HasValue)
-            {
-                QueryParams.Add($"totalFee={TotalFee}");
-            }
-
-            if (Reward.HasValue)
-            {
-                QueryParams.Add($"reward={Reward}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(PreviousBlock))
-            {
-                QueryParams.Add($"previousBlock={PreviousBlock}");
-            }
-
-            if (Height.HasValue)
-            {
-                QueryParams.Add($"height={Height}");
-            }
-
-            return base.ToQuery();
-        }
     }
 }

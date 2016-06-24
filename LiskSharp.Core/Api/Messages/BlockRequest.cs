@@ -7,6 +7,9 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     /// <summary>
@@ -14,15 +17,7 @@ namespace LiskSharp.Core.Api.Messages
     /// </summary>
     public class BlockRequest : BaseRequest
     {
+        [QueryParam(Name="id")]
         public string Id { get; set; }
-
-        public override string ToQuery()
-        {
-            if (!string.IsNullOrWhiteSpace(Id))
-            {
-                QueryParams.Add($"id={Id}");
-            }
-            return base.ToQuery();
-        }
     }
 }

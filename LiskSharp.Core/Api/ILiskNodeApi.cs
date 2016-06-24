@@ -12,6 +12,9 @@ using LiskSharp.Core.Api.Messages;
 
 namespace LiskSharp.Core.Api
 {
+    /// <summary>
+    /// Base interface for Lisk node api
+    /// </summary>
     public interface ILiskNodeApi
     {
         /// <summary>

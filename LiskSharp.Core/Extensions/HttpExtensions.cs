@@ -41,7 +41,7 @@ namespace LiskSharp.Core.Extensions
         }
 
         public static async Task<T2> PostJsonAsync<T1,T2>(this HttpClient client, string url, T1 req)
-        {
+         {
             var result = await client.PostAsync(url, new StringContent(req.ToString(),Encoding.UTF8, "application/json"));
             result.EnsureSuccessStatusCode();
             if (result.Content != null)

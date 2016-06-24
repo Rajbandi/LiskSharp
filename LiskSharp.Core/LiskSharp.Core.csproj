@@ -89,6 +89,7 @@
     <Compile Include="Api\Models\Delegate.cs" />
     <Compile Include="Api\Models\Fees.cs" />
     <Compile Include="Api\Models\Transaction.cs" />
+    <Compile Include="Attributes\QueryParamAttribute.cs" />
     <Compile Include="Common\Account.cs" />
     <Compile Include="Common\Address.cs" />
     <Compile Include="Common\Asset.cs" />

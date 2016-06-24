@@ -8,6 +8,8 @@
 // <summary></summary>
 #endregion
 
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     /// <summary>
@@ -15,24 +17,14 @@ namespace LiskSharp.Core.Api.Messages
     /// </summary>
     public class DelegateRequest : BaseRequest
     {
+        [QueryParam(Name = "transactionId")]
         public string TransactionId { get; set; }
 
+        [QueryParam(Name="username")]
         public string Username { get; set; }
 
+        [QueryParam(Name="publicKey")]
         public string PublicKey { get; set; }
 
-        public override string ToQuery()
-        {
-            if (!string.IsNullOrWhiteSpace(TransactionId))
-                QueryParams.Add($"transactionid={TransactionId}");
-
-            if (!string.IsNullOrWhiteSpace(PublicKey))
-                QueryParams.Add($"publicKey={PublicKey}");
-
-            if (!string.IsNullOrWhiteSpace(Username))
-                QueryParams.Add($"username={Username}");
-
-            return base.ToQuery();
-        }
     }
 }

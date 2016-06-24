@@ -7,23 +7,17 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     public class UnconfirmedTransactionsRequest : BaseRequest
     {
+        [QueryParam(Name = "senderPublicKey")]
         public string SenderPublickey { get; set; }
 
+        [QueryParam(Name = "address")]
         public string Address { get; set; }
-
-        public override string ToQuery()
-        {
-            if(!string.IsNullOrWhiteSpace(SenderPublickey))
-                QueryParams.Add($"senderPublicKey={SenderPublickey}");
-
-            if(!string.IsNullOrWhiteSpace(Address))
-                QueryParams.Add($"address={Address}");
-
-            return base.ToQuery();
-        }
     }
 }

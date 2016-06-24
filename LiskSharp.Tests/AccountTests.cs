@@ -1,14 +1,11 @@
-﻿using System;
-using LiskSharp.Core.Helpers;
+﻿using LiskSharp.Core.Helpers;
 using NUnit.Framework;
 using System.Diagnostics;
 
 namespace LiskSharp.Tests
 {
-   
     public class AccountTests
     {
-    
         [Test]
         public void TestSecret()
         {
@@ -22,11 +19,11 @@ namespace LiskSharp.Tests
         [Test]
         public void TestAddress()
         {
-            var secret = "artefact road payment cloud dinosaur twelve soon acquire ask tennis dash topic";
+            var secret = "cabbage chief join task universe hello grab slush page exit update brisk";
             Debug.WriteLine(secret);
             var address = CryptoHelper.GetAddress(secret);
             Debug.WriteLine(address);
-            Assert.IsTrue(address.IdString == "14254208205927701393L");
+            Assert.IsTrue(address.IdString == "10861956178781184496L");
         }
 
     }

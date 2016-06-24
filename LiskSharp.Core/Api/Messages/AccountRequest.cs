@@ -7,19 +7,16 @@
 // <date>23/6/2016</date>
 // <summary></summary>
 #endregion
+
+using System.Security.Principal;
+using System.Xml;
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     public class AccountRequest : BaseRequest
     {
+        [QueryParam(Name = "address")]
         public string Address { get; set; }
-
-        public override string ToQuery()
-        {
-            if (!string.IsNullOrWhiteSpace(Address))
-            {
-                QueryParams.Add($"address={Address}");
-            }
-            return base.ToQuery();
-        }
     }
 }

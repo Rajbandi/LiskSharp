@@ -9,6 +9,8 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Reflection;
+using LiskSharp.Core.Attributes;
 using Newtonsoft.Json;
 
 namespace LiskSharp.Core.Api.Messages
@@ -17,8 +19,13 @@ namespace LiskSharp.Core.Api.Messages
     {
         protected readonly List<string> QueryParams = new List<string>();
 
+        [QueryParam(Name="limit")]
         public int? Limit { get; set; } 
+
+        [QueryParam(Name="offset")]
         public int? Offset { get; set; }
+
+        [QueryParam(Name="orderBy")]
         public string OrderBy { get; set; }
 
         public override string ToString()
@@ -28,19 +35,22 @@ namespace LiskSharp.Core.Api.Messages
 
         public virtual string ToQuery()
         {
-            if (Limit.HasValue)
-            {
-                QueryParams.Add($"limit={Limit}");
-            }
-            if (Offset.HasValue)
-            {
-                QueryParams.Add($"offset={Offset}");
-            }
+            var propCollection = GetType().GetRuntimeProperties();
 
-            if (!string.IsNullOrWhiteSpace(OrderBy))
+            foreach (PropertyInfo property in propCollection)
             {
-                QueryParams.Add($"orderBy={OrderBy}");
+                foreach (var attribute in property.GetCustomAttributes(true))
+                {
+                    var attr = attribute as QueryParamAttribute;
+                    if (attr != null)
+                    {
+                        var val = property.GetValue(this);
+                        if(val != null)
+                            QueryParams.Add($"{attr.Name}={val}");
+                    }
+                }
             }
+         
             return string.Join("&", QueryParams.ToArray());
         }
     }

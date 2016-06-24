@@ -8,27 +8,15 @@
 // <summary></summary>
 #endregion
 
+using LiskSharp.Core.Attributes;
 namespace LiskSharp.Core.Api.Messages
 {
-    
     public class PeerRequest : BaseRequest
     {
-        
+        [QueryParam(Name="ip")]
         public string Ip { get; set; }
 
+        [QueryParam(Name="port")]
         public string Port { get; set; }
-
-
-        public override string ToQuery()
-        {
-          
-            if (!string.IsNullOrWhiteSpace(Ip))
-                QueryParams.Add(string.Format("ip={0}", Ip));
-
-            if (!string.IsNullOrWhiteSpace(Port))
-                QueryParams.Add(string.Format("port={0}", Port));
-
-            return base.ToQuery();
-        }
     }
 }

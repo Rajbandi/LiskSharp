@@ -8,18 +8,13 @@
 // <summary></summary>
 #endregion
 
+using LiskSharp.Core.Attributes;
+
 namespace LiskSharp.Core.Api.Messages
 {
     public class DelegateVotersRequest : BaseRequest
     {
+        [QueryParam(Name="publicKey")]
         public string PublicKey { get; set; }
-
-        public override string ToQuery()
-        {
-            if (!string.IsNullOrWhiteSpace(PublicKey))
-                QueryParams.Add($"publicKey={PublicKey}");
-
-            return base.ToQuery();
-        }
     }
 }
