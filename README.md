@@ -60,7 +60,7 @@ Lisksharp supports following peer related api. Still under development
 - Peer list (/peer/list)
 - Peer blocks (/peer/blocks)
 - Peer height (/peer/height) 
--
+
 #### Under development
 - Peer transaction (/peer/transaction)
 - Peer blocks common (/peer/blocks/common)
@@ -94,12 +94,14 @@ Console.WriteLine(secret);
 //cabbage chief join task universe hello grab slush page exit update brisk```
 - Generate a new Lisk address
 ```
- var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
+```
+var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
  var address = CryptoHelper.GetAddress(secret);
- //10861956178781184496L```
+ //10861956178781184496L
+ ```
 
- 
 - Public api examples
+
 ```
   ILiskNodeApi  _api = new LiskNodeApi(new ApiInfo
             {
