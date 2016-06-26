@@ -94,6 +94,8 @@ I'm working on this project part time and contributing in my free time. Other de
 
 # Examples
 
+##### More examples in Unit Tests. 
+
 - Generate BIP32 Mneumonic passphrase
 ```
 var secret = CryptoHelper.GenerateSecret(); 
@@ -106,7 +108,7 @@ var secret = "cabbage chief join task universe hello grab slush page exit update
  var address = CryptoHelper.GetAddress(secret);
  //10861956178781184496L
  ```
-- Sign and Verify a message bytes
+- Sign and Verify message bytes
 ```
  var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
  var address = CryptoHelper.GetAddress(secret);
@@ -130,51 +132,73 @@ var secret = "cabbage chief join task universe hello grab slush page exit update
 
 ```
   ILiskNodeApi  _api = new LiskNodeApi(new ApiInfo
+  {
+      //Host = "yourhostip", // This can be any lisk node in the network, default is login.lisk.io
+      //Port = "port"
+        UseHttps = true
+   });
+  
+  // gets peers from other lisk nodes,   /api/peers/
+  var response = await _api.GetPeersAsync(); 
+  
+  // gets particular peer details from other nodes, /api/peers/get
+  var response = await _api.GetPeerAsync(new PeerRequest
+   {
+      Ip = "104.251.218.222",
+      Port = "8000"
+   });
+  
+  // gets peer version from other lisk nodes, /api/peers/version
+  var version = await _api.GetVersionAsync();
+  
+  // Opens an account session on other lisk nodes,  /api/accounts/open
+  var response = await _api.OpenAccountAsync(new OpenAccountRequest
+  {
+      Secret= "cabbage chief join task universe hello grab slush page exit update brisk"
+  });
+  
+  var _account = response.Account;
+     
+  // gets account balance from other lisk nodes,  /api/accounts/getBalance
+  var response = await _api.GetAccountBalanceAsync(new AccountRequest
+   {
+     Address = _account.Address
+   });
+            
+  // gets all the delegates, /api/delegates/
+  var response = await _api.GetDelegatesAsync();
+  
+  // gets the delegate fee,  /api/delegates/fee
+  var response = await _api.GetDelegateFeeAsync();
+  
+  // gets the signature fee,  /api/signatures/fee
+  var response = await _api.GetSignatureFeeAsync();
+  
+  // gets the transaction details from a given transaction id, /api/transactions/get
+  var response = await _api.GetTransactionAsync(new TransactionRequest
+            {
+            Id = "15748634892930294330"
+            });
+   
+   More examples in unit tests.
+  ...
+  ```
+- Peer api examples
+```
+ILiskPeerApi  _api = new LiskPeerApi(new ApiInfo
             {
                 //Host = "yourhostip", // This can be any lisk node in the network, default is login.lisk.io
                 //Port = "port"
                 UseHttps = true
             });
-  
-  //  /api/peers/
-  var response = await _api.GetPeersAsync(); 
-  
-  // /api/peers/get
-  var response = await _api.GetPeerAsync(new PeerRequest
-            {
-                Ip = "104.251.218.222",
-                Port = "8000"
-            });
-  
-  // /api/peers/version
-    var version = await _api.GetVersionAsync();
-  
-  // /api/accounts/open
-  var response = await _api.OpenAccountAsync(new OpenAccountRequest
-            {
-                Secret= "cabbage chief join task universe hello grab slush page exit update brisk"
-            });
-     var _account = response.Account;
-     
-  // /api/accounts/getBalance
-  var response = await _api.GetAccountBalanceAsync(new AccountRequest
-            {
-                Address = _account.Address
-            });
             
-  // /api/delegates/
-  var response = await _api.GetDelegatesAsync();
-  
-  // /api/delegates/fee
-  var response = await _api.GetDelegateFeeAsync();
-  
-  // /api/signatures/fee
-  var response = await _api.GetSignatureFeeAsync();
-  
-  // /api/transactions/get
-  var response = await _api.GetTransactionAsync(new TransactionRequest
-            {
-            Id = "15748634892930294330"
-            });
-  ...
-  ```
+ // gets peer list from other node, /peer/list           
+ var response = await _api.GetPeerListAsync();            
+ 
+ // gets peer height from other node, /peer/height
+ var response = await _api.GetPeerHeightAsync();
+ 
+ // gets peer blocks from other node, /peer/blocks
+ var response = await _api.GetPeerBlocksAsync();
+ 
+```
