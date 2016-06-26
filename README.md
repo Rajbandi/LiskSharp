@@ -38,7 +38,7 @@ LiskSharp is cross platform  library based on Lisk (https://www.lisk.io) and ent
 - API facade for Lisk peer level api (/peer/*) (partial, see underdevelopment and roadmap)
 
 # Lisk api
-Every Lisk node provides 2 api's. Use these api's facade to connect to any Lisk node in the network and retrieve data. 
+Every Lisk node provides 2 api's. Use LiskSharp api's facade to connect to any Lisk node in the network with simple calls and retrieve data. 
 
 1. Public api (/api/*)
 2. Peer api (/peer/*)
@@ -84,7 +84,7 @@ Lisksharp supports following peer related api. Still under development
 
 # RoadMap 
 
-I'm working and contributing to this project in my free time. So expect updates anytime. Other developers are most welcome if you want to help this project.
+I'm working and contributing to this project in my free time. So expect updates anytime. Other developers are most welcome if they want to help in this project.
 
 - Standalone server (as window service or background worker) with api, database, delegates and broadcast to other peers.
 - Separate api layer for handling incoming api requests both public and peer from other nodes.
