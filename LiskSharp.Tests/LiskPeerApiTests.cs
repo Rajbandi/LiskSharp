@@ -35,8 +35,8 @@ namespace LiskSharp.Tests
         public async void TestGetPeerList()
         {
             var response = await _api.GetPeerListAsync();
-            Debug.WriteLine(response);
             Assert.IsTrue(response.Peers != null, $"Unable to retrieve peers. Response={response}");
+            Debug.WriteLine(response);
         }
 
         [Test]
@@ -47,6 +47,16 @@ namespace LiskSharp.Tests
             
             Assert.IsTrue(response.Blocks != null, $"Unable to retrieve blocks. Response={response}");
             Debug.WriteLine(response.Blocks.Count);
+        }
+
+        [Test]
+        [Category("Peer")]
+        public async void TestGetHeight()
+        {
+            var response = await _api.GetPeerHeightAsync();
+
+            Assert.IsTrue(response.Height != null, $"Unable to retrieve Height. Response={response}");
+            Debug.WriteLine(response.Height);
         }
         #endregion
 

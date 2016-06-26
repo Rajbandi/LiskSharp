@@ -106,6 +106,7 @@
     <Compile Include="Api\Messages\Node\VersionResponse.cs" />
     <Compile Include="Api\Messages\Peer\PeerBaseRequest.cs" />
     <Compile Include="Api\Messages\Peer\PeerBlocksResponse.cs" />
+    <Compile Include="Api\Messages\Peer\PeerHeightResponse.cs" />
     <Compile Include="Api\Messages\Peer\PeerListResponse.cs" />
     <Compile Include="Api\Models\Account.cs" />
     <Compile Include="Api\Models\HeaderValue.cs" />

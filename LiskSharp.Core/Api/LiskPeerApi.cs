@@ -92,6 +92,16 @@ namespace LiskSharp.Core.Api
             return response;
         }
 
+        public async Task<PeerHeightResponse> GetPeerHeightAsync()
+        {
+            var req = new PeerBaseRequest();
+            _url.Path = Constants.PeerGetHeight;
+            var headerValues = req.GetHeaderValues().ToList();
+            AddHeaders(headerValues);
+            var response = await _client.GetJsonAsync<PeerHeightResponse>(_url.ToString());
+            ResetRequest(headerValues);
+            return response;
+        }
         #endregion
 
         #region private methods
@@ -119,6 +129,8 @@ namespace LiskSharp.Core.Api
                 }
             }
         }
+
+
 
         #endregion
     }

@@ -28,5 +28,7 @@ namespace LiskSharp.Core.Api
         /// </summary>
         /// <returns>Blocks list</returns>
         Task<PeerBlocksResponse> GetPeerBlocksAsync();
+
+        Task<PeerHeightResponse> GetPeerHeightAsync();
     }
 }
