@@ -5,8 +5,6 @@ App Veyor: [![Build status](https://ci.appveyor.com/api/projects/status/ivsvl8jg
 
 Travis-CI: [![Build status](https://travis-ci.org/Rajbandi/LiskSharp.svg?branch=master)](https://travis-ci.org/Rajbandi/LiskSharp)
 
-# Please donate Lisk to 10432128511901446740L
-
 #Introduction
 
 Lisk meets C#.Net
@@ -205,3 +203,14 @@ ILiskPeerApi  _api = new LiskPeerApi(new ApiInfo
  
 ```
 
+#### Donate 
+
+##### Bitcoin 
+
+1B7jF7NDfFSdToSiPvYWnHAxEUmNaMfYe 
+
+[![Bitcoin](http://i.imgur.com/3Cr4ymn.png)](http://i.imgur.com/3Cr4ymn.png)
+
+##### Lisk 
+
+10432128511901446740L
