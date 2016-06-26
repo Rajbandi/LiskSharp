@@ -80,9 +80,9 @@ Lisksharp supports following peer related api. Still under development
 - DappManCli, a cross platform dapp command line to create, uupdate and remove dapps.
 
 
-#RoadMap 
+# RoadMap 
 
-I'm working on this project part time and contributing in my free time. Other developers are most welcome if you want to help this project.
+I'm working and contributing to this project in my free time. So expect updates anytime. Other developers are most welcome if you want to help this project.
 
 - Standalone server (as window service or background worker) with api, database, delegates and broadcast to other peers.
 - Separate api layer for handling incoming api requests both public and peer from other nodes.
@@ -104,7 +104,7 @@ Console.WriteLine(secret);
 ```
 - Generate a new Lisk address
 ```
-var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
+ var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
  var address = CryptoHelper.GetAddress(secret);
  //10861956178781184496L
  ```
@@ -125,7 +125,7 @@ var secret = "cabbage chief join task universe hello grab slush page exit update
  var signatureInHex = signatureBytes.ToHex();
  
  var isVerified = CryptoHelper.Verify(signatureBytes, keypair.PublicKey);
-//If isVerified = true, message verified correctly. 
+ //If isVerified = true, message verified correctly. 
 
  ```
 - Public api examples
@@ -186,11 +186,11 @@ var secret = "cabbage chief join task universe hello grab slush page exit update
 - Peer api examples
 ```
 ILiskPeerApi  _api = new LiskPeerApi(new ApiInfo
-            {
-                //Host = "yourhostip", // This can be any lisk node in the network, default is login.lisk.io
-                //Port = "port"
-                UseHttps = true
-            });
+    {
+        //Host = "yourhostip", // This can be any lisk node in the network, default is login.lisk.io
+        //Port = "port"
+        UseHttps = true
+   });
             
  // gets peer list from other node, /peer/list           
  var response = await _api.GetPeerListAsync();            
