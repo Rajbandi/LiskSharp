@@ -30,16 +30,18 @@ LiskSharp is cross platform  library based on Lisk (https://www.lisk.iio) and en
 # Features
 - Native Bip32 Mnuemonic passphrase generation.
 - Native Lisk Address generation from a given BIP32 Mnuemonic passphrase.
+- Sign and Verify message bytes with private key. 
+- Calculate transaction and dapp bytes.
 - API facade for Lisk public api (/api/*) (complete api)
 - API facade for Lisk peer level api (/peer/*) (partial, see underdevelopment and roadmap)
 
 # Lisk api
-Lisk provides 2 apis
+Every Lisk node provides 2 api's 
 
 1. Public api (/api/*)
 2. Peer api (/peer/*)
 
-All the api supports both synchronous and asynchronous requests.
+All the api requests initiated from LiskSharpsupports both synchronous and asynchronous. 
 
 ##public api
 
@@ -71,16 +73,18 @@ Lisksharp supports following peer related api. Still under development
 
 # Under development
 - Peer API facade. Currently it supports /peer/list, /peer/blocks, /peer/height. 
+- Logic to create new blocks,  transactions, votes.
 - DappMan, a dapp manager library for building dapps with or without git.
 - DappManCli, a cross platform dapp command line to create, uupdate and remove dapps.
 
 
 #RoadMap 
 
-I'm working on this project part time and contributing to the project in my free time. Other developers are welcome.
+I'm working on this project part time and contributing in my free time. Other developers are most welcome if you want to help this project.
 
-- Windows native client with delegates and broadcast support.
-- Windows 8 & 10 app.
+- Standalone server (as window service or background worker) with api, database, delegates and broadcast to other peers.
+- Windows native client.
+- Windows 8, phone & 10 apps.
 - Android and IOS(IPhone) native apps ( will be faster than web version).
 
 
@@ -91,15 +95,34 @@ I'm working on this project part time and contributing to the project in my free
 ```
 var secret = CryptoHelper.GenerateSecret(); 
 Console.WriteLine(secret); 
-//cabbage chief join task universe hello grab slush page exit update brisk```
-- Generate a new Lisk address
+//cabbage chief join task universe hello grab slush page exit update brisk
 ```
+- Generate a new Lisk address
 ```
 var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
  var address = CryptoHelper.GetAddress(secret);
  //10861956178781184496L
  ```
+- Sign and Verify a message bytes
+```
+ var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
+ var address = CryptoHelper.GetAddress(secret);
+ // address = { Id:"10861956178781184496L", KeyPair:{PublicKey:..., PrivateKey:...}}
+ 
+ var keypair = address.KeyPair;
+ var message = "This is my first message, testing sign and verify"
+ var messageBytes = Encoding.UTF8.GetBytes(message);
+ 
+ //Signs a message with private key
+ 
+ var signatureBytes = CryptoHelper.Sign(messageBytes, keypair.PrivateKey);
+ 
+ var signatureInHex = signatureBytes.ToHex();
+ 
+ var isVerified = CryptoHelper.Verify(signatureBytes, keypair.PublicKey);
+//If isVerified = true, message verified correctly. 
 
+ ```
 - Public api examples
 
 ```
