@@ -1,4 +1,13 @@
-﻿using System;
+﻿#region copyright
+// <copyright file="HeaderValueAttribute.cs" >
+// Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
+// </copyright>
+// <author>Raj Bandi</author>
+// <date>26/6/2016</date>
+// <summary></summary>
+#endregion
+using System;
 
 namespace LiskSharp.Core.Attributes
 {

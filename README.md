@@ -39,7 +39,7 @@ Lisk provides 2 apis
 1. Public api (/api/*)
 2. Peer api (/peer/*)
 
-All the api supports both synchronous and asynchronous.
+All the api supports both synchronous and asynchronous requests.
 
 ##public api
 
@@ -60,7 +60,9 @@ Lisksharp supports following peer related api. Still under development
 - Peer list (/peer/list)
 - Peer blocks (/peer/blocks)
 - Peer height (/peer/height) 
-- Peer transaction (/peer/transaction) (under development)
+-
+#### Under development
+- Peer transaction (/peer/transaction)
 - Peer blocks common (/peer/blocks/common)
 - Peer signatures (/peer/signatures)
 - Peer dapp request (/peer/dapp/request)
@@ -69,8 +71,8 @@ Lisksharp supports following peer related api. Still under development
 
 # Under development
 - Peer API facade. Currently it supports /peer/list, /peer/blocks, /peer/height. 
-- DappMan, a dapp building library with or without git.
-- DappManCli, a cross platform dapp command line to create, uupdate and remove dapps
+- DappMan, a dapp manager library for building dapps with or without git.
+- DappManCli, a cross platform dapp command line to create, uupdate and remove dapps.
 
 
 #RoadMap 
@@ -85,17 +87,19 @@ I'm working on this project part time and contributing to the project in my free
 
 # Examples
 
-1. Generate BIP32 Mneumonic passphrase
+- Generate BIP32 Mneumonic passphrase
 ```
 var secret = CryptoHelper.GenerateSecret(); 
 Console.WriteLine(secret); 
 //cabbage chief join task universe hello grab slush page exit update brisk```
-2. Generate a new Lisk address
+- Generate a new Lisk address
 ```
  var secret = "cabbage chief join task universe hello grab slush page exit update brisk"; 
  var address = CryptoHelper.GetAddress(secret);
  //10861956178781184496L```
-3. Public api examples
+
+ 
+- Public api examples
 ```
   ILiskNodeApi  _api = new LiskNodeApi(new ApiInfo
             {

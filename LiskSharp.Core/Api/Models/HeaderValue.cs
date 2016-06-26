@@ -1,4 +1,13 @@
-﻿namespace LiskSharp.Core.Api.Models
+﻿#region copyright
+// <copyright file="HeaderValue.cs" >
+// Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
+// </copyright>
+// <author>Raj Bandi</author>
+// <date>26/6/2016</date>
+// <summary></summary>
+#endregion
+namespace LiskSharp.Core.Api.Models
 {
     /// <summary>
     /// Represents request header value
