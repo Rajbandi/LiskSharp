@@ -9,7 +9,7 @@ Travis-CI: [![Build status](https://travis-ci.org/Rajbandi/LiskSharp.svg?branch=
 
 Lisk meets C#.Net
 
-LiskSharp is cross platform  library based on Lisk (https://www.lisk.iio) and entirely rewritten in C# without any node.js depedencies. Lisksharp core api is a PCL library.  Currently it supports Windows (including windows 8, 10 and windows phone), Linux and Mac, Xamarin mobile. 
+LiskSharp is cross platform  library based on Lisk (https://www.lisk.io) and entirely rewritten in C# without any node.js depedencies. Lisksharp core api is a PCL library.  Currently it supports Windows (including windows 8, 10 and windows phone), Linux and Mac, Xamarin mobile. 
 
 ### Development Environment
 
