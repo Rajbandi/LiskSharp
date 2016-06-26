@@ -36,16 +36,18 @@ LiskSharp is cross platform  library based on Lisk (https://www.lisk.io) and ent
 - API facade for Lisk peer level api (/peer/*) (partial, see underdevelopment and roadmap)
 
 # Lisk api
-Every Lisk node provides 2 api's 
+Every Lisk node provides 2 api's. Use these api's facade to connect to any Lisk node in the network and retrieve data. 
 
 1. Public api (/api/*)
 2. Peer api (/peer/*)
 
 All the api requests initiated from LiskSharpsupports both synchronous and asynchronous. 
 
-##public api
+#### Currently supports only outgoing requests to other Lisk nodes not vice versa i,e. it doesn't accept api requests from other nodes.
 
-LiskSharp supports complete Lisk public api categorized as below. 
+## Public api
+
+LiskSharp supports complete Lisk public api (outward only) categorized as below. 
 
 - Accounts (/api/accounts/*)
 - Blocks (/api/blocks/*)
@@ -72,7 +74,7 @@ Lisksharp supports following peer related api. Still under development
 
 
 # Under development
-- Peer API facade. Currently it supports /peer/list, /peer/blocks, /peer/height. 
+- Peer API facade complete.  
 - Logic to create new blocks,  transactions, votes.
 - DappMan, a dapp manager library for building dapps with or without git.
 - DappManCli, a cross platform dapp command line to create, uupdate and remove dapps.
@@ -83,6 +85,7 @@ Lisksharp supports following peer related api. Still under development
 I'm working on this project part time and contributing in my free time. Other developers are most welcome if you want to help this project.
 
 - Standalone server (as window service or background worker) with api, database, delegates and broadcast to other peers.
+- Separate api layer for handling incoming api requests both public and peer from other nodes.
 - Windows native client.
 - Windows 8, phone & 10 apps.
 - Android and IOS(IPhone) native apps ( will be faster than web version).
@@ -128,7 +131,7 @@ var secret = "cabbage chief join task universe hello grab slush page exit update
 ```
   ILiskNodeApi  _api = new LiskNodeApi(new ApiInfo
             {
-                //Host = "yourhostip",
+                //Host = "yourhostip", // This can be any lisk node in the network, default is login.lisk.io
                 //Port = "port"
                 UseHttps = true
             });
