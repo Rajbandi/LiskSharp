@@ -8,6 +8,9 @@ using NUnit.Framework;
 
 namespace LiskSharp.Tests
 {
+    /// <summary>
+    /// This class contains dapp related tests
+    /// </summary>
     [TestFixture]
     public class DappTests
     {

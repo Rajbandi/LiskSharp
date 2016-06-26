@@ -1,0 +1,26 @@
+﻿#region copyright
+// <copyright file="AccountResponse.cs" >
+// Copyright (c) 2016 All Rights Reserved
+// Licensed under MIT
+// </copyright>
+// <author>Raj Bandi</author>
+// <date>23/6/2016</date>
+// <summary></summary>
+#endregion
+
+using System.Runtime.Serialization;
+using LiskSharp.Core.Api.Messages.Common;
+using LiskSharp.Core.Api.Models;
+
+namespace LiskSharp.Core.Api.Messages.Node
+{
+    /// <summary>
+    /// Account response class for handling /api/accounts/get
+    /// </summary>
+    [DataContract]
+    public class AccountResponse : BaseResponse
+    {
+        [DataMember(Name = "account")]
+        public Account Account { get; set; }
+    }
+}

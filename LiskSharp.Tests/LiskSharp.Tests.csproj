@@ -58,7 +58,8 @@
     <Compile Include="BlockTests.cs" />
     <Compile Include="DappTests.cs" />
     <Compile Include="Internals\Unzip.cs" />
-    <Compile Include="LiskApiTests.cs" />
+    <Compile Include="LiskPeerApiTests.cs" />
+    <Compile Include="LiskNodeApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionTests.cs" />
   </ItemGroup>

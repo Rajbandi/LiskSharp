@@ -33,6 +33,9 @@ namespace LiskSharp.Core.Api.Models
         [DataMember(Name = "senderPublicKey")]
         public string SenderPublicKey { get; set; }
 
+        [DataMember(Name = "requestorPublicKey")]
+        public string RequestorPublicKey { get; set; }
+
         [DataMember(Name = "senderId")]
         public string SenderId { get; set; }
 
@@ -50,6 +53,9 @@ namespace LiskSharp.Core.Api.Models
 
         [DataMember(Name = "signatures")]
         public object Signatures { get; set; }
+
+        [DataMember(Name = "signSignature")]
+        public string SignSignature { get; set; }
 
         [DataMember(Name = "confirmations")]
         public int Confirmations { get; set; }

@@ -6,6 +6,9 @@ using NUnit.Framework;
 
 namespace LiskSharp.Tests
 {
+    /// <summary>
+    /// This class contains lisk
+    /// </summary>
     [TestFixture]
     public class BlockTests
     {

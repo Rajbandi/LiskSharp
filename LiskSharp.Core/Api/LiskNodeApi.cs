@@ -10,7 +10,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using LiskSharp.Core.Api.Messages;
+using LiskSharp.Core.Api.Messages.Node;
 using LiskSharp.Core.Api.Models;
 using LiskSharp.Core.Common;
 using LiskSharp.Core.Extensions;
@@ -24,7 +24,6 @@ namespace LiskSharp.Core.Api
     public class LiskNodeApi : ILiskNodeApi
     {
         private readonly UriBuilder _url;
-
         private readonly HttpClient _client;
 
         public LiskNodeApi(ApiInfo info)
@@ -155,6 +154,31 @@ namespace LiskSharp.Core.Api
             var response = await _client.GetJsonAsync<DelegateForgingAccountResponse>(_url.ToString());
             return response;
         }
+
+        /// <summary>
+        /// Adds a delegate synchronously
+        /// </summary>
+        /// <param name="req">DelegateAddRequest with account details</param>
+        /// <returns>DelegateAddResponse with transaction details</returns>
+        public DelegateAddResponse AddDelegate(DelegateAddRequest req)
+        {
+            var response = AddDelegateAsync(req).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a delegate asynchronously
+        /// </summary>
+        /// <param name="req">DelegateAddRequest with account details</param>
+        /// <returns>DelegateAddResponse with transaction details</returns>
+        public async Task<DelegateAddResponse> AddDelegateAsync(DelegateAddRequest req)
+        {
+            _url.Path = Constants.ApiPutDelegateAdd;
+            var response = await _client.PutJsonAsync<DelegateAddRequest, DelegateAddResponse>(_url.ToString(), req);
+            return response;
+        }
+
         #endregion
 
         #region Peer related api 
@@ -490,6 +514,30 @@ namespace LiskSharp.Core.Api
             return response;
         }
 
+        /// <summary>
+        /// Adds a new signature on the remote node synchronously. Secret, SecondSecret are required 
+        /// </summary>
+        /// <param name="req">Signature details</param>
+        /// <returns>SignatureAddResponse with transaction details</returns>
+        public SignatureAddResponse AddSignature(SignatureAddRequest req)
+        {
+            var response = AddSignatureAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a new signature on the remote node asynchronously. Secret, SecondSecret are required 
+        /// </summary>
+        /// <param name="req">Signature details</param>
+        /// <returns>SignatureAddResponse with transaction details</returns>
+        public async Task<SignatureAddResponse> AddSignatureAsync(SignatureAddRequest req)
+        {
+            _url.Path = Constants.ApiPutSignatureAdd;
+            var response = await _client.PutJsonAsync<SignatureAddRequest, SignatureAddResponse>(_url.ToString(), req);
+            ResetPath();
+            return response;
+        }
+
         #endregion
 
         #region Transactions related api
@@ -583,6 +631,30 @@ namespace LiskSharp.Core.Api
             _url.Path = Constants.ApiGetUnconfirmedTransaction;
             _url.Query = req.ToQuery();
             var response = await _client.GetJsonAsync<TransactionResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a new transactions on the remote node synchronously. Secret, Amount and RecipientId are required 
+        /// </summary>
+        /// <param name="req">Transaction details</param>
+        /// <returns>TransactionAddResponse with transactionId</returns>
+        public TransactionAddResponse AddTransaction(TransactionAddRequest req)
+        {
+            var response = AddTransactionAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a new transactions on the remote node asynchronously. Secret, Amount and RecipientId are required 
+        /// </summary>
+        /// <param name="req">Transaction details</param>
+        /// <returns>TransactionAddResponse with transactionId</returns>
+        public async Task<TransactionAddResponse> AddTransactionAsync(TransactionAddRequest req)
+        {
+            _url.Path = Constants.ApiPutAddTransaction;
+            var response = await _client.PutJsonAsync<TransactionAddRequest, TransactionAddResponse>(_url.ToString(), req);
             ResetPath();
             return response;
         }
@@ -721,7 +793,7 @@ namespace LiskSharp.Core.Api
         }
 
         /// <summary>
-        /// Opens an account session
+        /// Opens an account session synchronously
         /// </summary>
         /// <returns>OpenAccountResponse with account details</returns>
         public OpenAccountResponse OpenAccount(OpenAccountRequest acc)
@@ -732,7 +804,7 @@ namespace LiskSharp.Core.Api
         }
 
         /// <summary>
-        /// Opens an account session
+        /// Opens an account session asynchronously
         /// </summary>
         /// <returns>OpenAccountResponse with account details</returns>
         public async Task<OpenAccountResponse> OpenAccountAsync(OpenAccountRequest acc)
@@ -743,8 +815,210 @@ namespace LiskSharp.Core.Api
             return response;
         }
 
+        /// <summary>
+        /// Generates a public key from given secret synchronously
+        /// </summary>
+        /// <param name="acc">AccountGeneratePublickeyRequest with secret</param>
+        /// <returns>AccountGeneratePublicKeyResponse with public key details</returns>
+        public AccountGeneratePublicKeyResponse GenerateAccountPublickey(AccountGeneratePublickeyRequest acc)
+        {
+            var response = GenerateAccountPublickeyAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Generates a public key from given secret asynchronously
+        /// </summary>
+        /// <param name="acc">AccountGeneratePublickeyRequest with secret</param>
+        /// <returns>AccountGeneratePublicKeyResponse with public key details</returns>
+        public async Task<AccountGeneratePublicKeyResponse> GenerateAccountPublickeyAsync(AccountGeneratePublickeyRequest acc)
+        {
+            _url.Path = Constants.ApiPostAccountOpen;
+            _url.Query = acc.ToQuery();
+            var response = await _client.PostJsonAsync<AccountGeneratePublickeyRequest, AccountGeneratePublicKeyResponse>(_url.ToString(), acc);
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a new delegate to an account synchronously
+        /// </summary>
+        /// <param name="acc">AccountDelegateAddRequest with account details and delegate public key</param>
+        /// <returns>AccountDelegateAddResponse with transaction details</returns>
+        public AccountDelegateAddResponse AddAccountDelegate(AccountDelegateAddRequest acc)
+        {
+            var response = AddAccountDelegateAsync(acc).GetAwaiter().GetResult();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Adds a new delegate to an account asynchronously
+        /// </summary>
+        /// <param name="acc">AccountDelegateAddRequest with account details and delegate public key</param>
+        /// <returns>AccountDelegateAddResponse with transaction details</returns>
+        public async Task<AccountDelegateAddResponse> AddAccountDelegateAsync(AccountDelegateAddRequest acc)
+        {
+            _url.Path = Constants.ApiPutAccountDelegateAdd;
+            var response = await _client.PutJsonAsync<AccountDelegateAddRequest, AccountDelegateAddResponse>(_url.ToString(), acc);
+            ResetPath();
+            return response;
+        }
+
         #endregion
 
+        #region Loader related api
+
+        /// <summary>
+        /// Gets the status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusResponse with status</returns>
+        public LoaderStatusResponse GetLoaderStatus()
+        {
+            var response = GetLoaderStatusAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusResponse with status</returns>
+        public async Task<LoaderStatusResponse> GetLoaderStatusAsync()
+        {
+            _url.Path = Constants.ApiGetLoaderStatus;
+            var response = await _client.GetJsonAsync<LoaderStatusResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the sync status of remote node synchronously
+        /// </summary>
+        /// <returns>LoaderStatusSyncResponse with sync details</returns>
+        public LoaderStatusSyncResponse GetLoaderSyncStatus()
+        {
+            var response = GetLoaderSyncStatusAsync().GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the sync status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusSyncResponse with sync details</returns>
+        public async Task<LoaderStatusSyncResponse> GetLoaderSyncStatusAsync()
+        {
+            _url.Path = Constants.ApiGetLoaderSyncStatus;
+            var response = await _client.GetJsonAsync<LoaderStatusSyncResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        #endregion
+
+        #region Multisignatures related Api
+
+        /// <summary>
+        /// Gets multisignatures pending details from remote node synchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesPendingRequest with publickey</param>
+        /// <returns>MultiSignaturesPendingResponse with pending transactions details</returns>
+        public MultiSignaturesPendingResponse GetMultiSignaturesPending(MultiSignaturesPendingRequest req)
+        {
+            var response = GetMultiSignaturesPendingAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+
+        /// <summary>
+        /// Gets multisignatures pending details from remote node asynchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesPendingRequest with publickey</param>
+        /// <returns>MultiSignaturesPendingResponse with pending transactions details</returns>
+        public async Task<MultiSignaturesPendingResponse> GetMultiSignaturesPendingAsync(MultiSignaturesPendingRequest req)
+        {
+            _url.Path = Constants.ApiGetMultiSignaturesPending;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<MultiSignaturesPendingResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Gets multisignatures accounts details from remote node synchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesAccountsRequest with publickey</param>
+        /// <returns>MultiSignaturesAccountsRequest with account details</returns>
+        public MultiSignaturesAccountsResponse GetMultiSignaturesAccounts(MultiSignaturesAccountsRequest req)
+        {
+            var response = GetMultiSignaturesAccountsAsync(req).GetAwaiter().GetResult();
+            
+            return response;
+        }
+
+        /// <summary>
+        /// Gets multisignatures accounts details from remote node asynchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesAccountsRequest with publickey</param>
+        /// <returns>MultiSignaturesAccountsRequest with account details</returns>
+        public async Task<MultiSignaturesAccountsResponse> GetMultiSignaturesAccountsAsync(MultiSignaturesAccountsRequest req)
+        {
+            _url.Path = Constants.ApiGetMultiSignaturesAccounts;
+            _url.Query = req.ToQuery();
+            var response = await _client.GetJsonAsync<MultiSignaturesAccountsResponse>(_url.ToString());
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Signs multisignatures synchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesSignRequest with secret, secondSecret, transactionId</param>
+        /// <returns>MultiSignaturesSignResponse with details</returns>
+        public MultiSignaturesSignResponse SignMultiSignatures(MultiSignaturesSignRequest req)
+        {
+            var response = SignMultiSignaturesAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Signs multisignatures asynchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesSignRequest with secret, secondSecret, transactionId</param>
+        /// <returns>MultiSignaturesSignResponse with details</returns>
+        public async Task<MultiSignaturesSignResponse> SignMultiSignaturesAsync(MultiSignaturesSignRequest req)
+        {
+            _url.Path = Constants.ApiPostMultiSignaturesSign;
+            var response = await _client.PostJsonAsync<MultiSignaturesSignRequest, MultiSignaturesSignResponse>(_url.ToString(), req);
+            ResetPath();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds multi signature synchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesAddRequest</param>
+        /// <returns>MultiSignaturesAddResponse</returns>
+        public MultiSignaturesAddResponse AddMultiSignatures(MultiSignaturesAddRequest req)
+        {
+            var response = AddMultiSignaturesAsync(req).GetAwaiter().GetResult();
+            return response;
+        }
+
+        /// <summary>
+        /// Adds multi signature asynchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesAddRequest</param>
+        /// <returns>MultiSignaturesAddResponse</returns>
+        public async Task<MultiSignaturesAddResponse> AddMultiSignaturesAsync(MultiSignaturesAddRequest req)
+        {
+            _url.Path = Constants.ApiPostMultiSignaturesSign;
+            var response = await _client.PutJsonAsync<MultiSignaturesAddRequest, MultiSignaturesAddResponse>(_url.ToString(), req);
+            ResetPath();
+            return response;
+        }
+
+        #endregion
         #region private methods
         /// <summary>
         /// Resets url path and query

@@ -8,7 +8,7 @@
 // <summary></summary>
 #endregion
 using System.Threading.Tasks;
-using LiskSharp.Core.Api.Messages;
+using LiskSharp.Core.Api.Messages.Node;
 
 namespace LiskSharp.Core.Api
 {
@@ -17,6 +17,8 @@ namespace LiskSharp.Core.Api
     /// </summary>
     public interface ILiskNodeApi
     {
+        #region Delegate releted api
+
         /// <summary>
         /// Get all delegates from a node synchronously 
         /// </summary>
@@ -78,6 +80,24 @@ namespace LiskSharp.Core.Api
         Task<DelegateForgingAccountResponse> GetDelegateForgingAccountAsync(DelegateForgingAccountRequest req);
 
         /// <summary>
+        /// Adds a delegate synchronously
+        /// </summary>
+        /// <param name="req">DelegateAddRequest with account details</param>
+        /// <returns>DelegateAddResponse with transaction details</returns>
+        DelegateAddResponse AddDelegate(DelegateAddRequest req);
+
+        /// <summary>
+        /// Adds a delegate asynchronously
+        /// </summary>
+        /// <param name="req">DelegateAddRequest with account details</param>
+        /// <returns>DelegateAddResponse with transaction details</returns>
+        Task<DelegateAddResponse> AddDelegateAsync(DelegateAddRequest req);
+
+        #endregion
+
+        #region Peer related api
+
+        /// <summary>
         /// Get all peers from a node synchronously 
         /// </summary>
         /// <returns>Peers response with peer list</returns>
@@ -113,6 +133,9 @@ namespace LiskSharp.Core.Api
         /// <returns></returns>
         Task<VersionResponse> GetVersionAsync();
 
+        #endregion
+
+        #region Block related api
         /// <summary>
         /// Gets list of block synchronously  
         /// </summary>
@@ -238,7 +261,9 @@ namespace LiskSharp.Core.Api
         /// </summary>
         /// <returns>BlocksStatusResponse with status</returns>
         Task<BlockStatusResponse> GetBlockStatusAsync();
+        #endregion
 
+        #region Signature related api
         /// <summary>
         /// Gets signature fee asynchronously
         /// </summary>
@@ -251,6 +276,22 @@ namespace LiskSharp.Core.Api
         /// <returns>FeeResponse with fee details</returns>
         Task<FeeResponse> GetSignatureFeeAsync();
 
+        /// <summary>
+        /// Adds a new signature on the remote node synchronously. Secret, SecondSecret are required 
+        /// </summary>
+        /// <param name="req">Signature details</param>
+        /// <returns>SignatureAddResponse with transaction details</returns>
+        SignatureAddResponse AddSignature(SignatureAddRequest req);
+
+        /// <summary>
+        /// Adds a new signature on the remote node asynchronously. Secret, SecondSecret are required 
+        /// </summary>
+        /// <param name="req">Signature details</param>
+        /// <returns>SignatureAddResponse with transaction details</returns>
+        Task<SignatureAddResponse> AddSignatureAsync(SignatureAddRequest req);
+        #endregion
+
+        #region Transaction related api
         /// <summary>
         /// Gets a transaction by a given id synchronously
         /// </summary>
@@ -299,6 +340,22 @@ namespace LiskSharp.Core.Api
         /// <returns>TransactionResponse with unconfirmed transaction details</returns>
         Task<TransactionResponse> GetUnconfirmedTransactionAsync(TransactionRequest req);
 
+        /// <summary>
+        /// Adds a new transactions on the remote node synchronously. Secret, Amount and RecipientId are required 
+        /// </summary>
+        /// <param name="req">Transaction details</param>
+        /// <returns>TransactionAddResponse with transactionId</returns>
+        TransactionAddResponse AddTransaction(TransactionAddRequest req);
+
+        /// <summary>
+        /// Adds a new transactions on the remote node asynchronously. Secret, Amount and RecipientId are required 
+        /// </summary>
+        /// <param name="req">Transaction details</param>
+        /// <returns>TransactionAddResponse with transactionId</returns>
+        Task<TransactionAddResponse> AddTransactionAsync(TransactionAddRequest req);
+        #endregion
+
+        #region Account related api
         /// <summary>
         /// Gets account details from a given address synchronously
         /// Only applicable when account session is already opened with /account/open
@@ -379,5 +436,120 @@ namespace LiskSharp.Core.Api
         /// </summary>
         /// <returns>OpenAccountResponse with account details</returns>
         Task<OpenAccountResponse> OpenAccountAsync(OpenAccountRequest acc);
+
+        /// <summary>
+        /// Generates a public key from given secret synchronously
+        /// </summary>
+        /// <param name="acc">AccountGeneratePublickeyRequest with secret</param>
+        /// <returns>AccountGeneratePublicKeyResponse with public key details</returns>
+        AccountGeneratePublicKeyResponse GenerateAccountPublickey(AccountGeneratePublickeyRequest acc);
+
+        /// <summary>
+        /// Generates a public key from given secret asynchronously
+        /// </summary>
+        /// <param name="acc">AccountGeneratePublickeyRequest with secret</param>
+        /// <returns>AccountGeneratePublicKeyResponse with public key details</returns>
+        Task<AccountGeneratePublicKeyResponse> GenerateAccountPublickeyAsync(AccountGeneratePublickeyRequest acc);
+
+        /// <summary>
+        /// Adds a new delegate to an account synchronously
+        /// </summary>
+        /// <param name="acc">AccountDelegateAddRequest with account details and delegate public key</param>
+        /// <returns>AccountDelegateAddResponse with transaction details</returns>
+        AccountDelegateAddResponse AddAccountDelegate(AccountDelegateAddRequest acc);
+
+        /// <summary>
+        /// Adds a new delegate to an account asynchronously
+        /// </summary>
+        /// <param name="acc">AccountDelegateAddRequest with account details and delegate public key</param>
+        /// <returns>AccountDelegateAddResponse with transaction details</returns>
+        Task<AccountDelegateAddResponse> AddAccountDelegateAsync(AccountDelegateAddRequest acc);
+
+        #endregion
+
+        #region Loader related api
+        /// <summary>
+        /// Gets the status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusResponse with status</returns>
+        LoaderStatusResponse GetLoaderStatus();
+
+        /// <summary>
+        /// Gets the status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusResponse with status</returns>
+        Task<LoaderStatusResponse> GetLoaderStatusAsync();
+
+        /// <summary>
+        /// Gets the sync status of remote node synchronously
+        /// </summary>
+        /// <returns>LoaderStatusSyncResponse with sync details</returns>
+        LoaderStatusSyncResponse GetLoaderSyncStatus();
+
+        /// <summary>
+        /// Gets the sync status of remote node asynchronously
+        /// </summary>
+        /// <returns>LoaderStatusSyncResponse with sync details</returns>
+        Task<LoaderStatusSyncResponse> GetLoaderSyncStatusAsync();
+
+        #endregion
+
+        #region MultiSignatures related api 
+        /// <summary>
+        /// Gets multisignatures pending details from remote node synchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesPendingRequest with publickey</param>
+        /// <returns>MultiSignaturesPendingResponse with pending transactions details</returns>
+        MultiSignaturesPendingResponse GetMultiSignaturesPending(MultiSignaturesPendingRequest req);
+
+        /// <summary>
+        /// Gets multisignatures pending details from remote node asynchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesPendingRequest with publickey</param>
+        /// <returns>MultiSignaturesPendingResponse with pending transactions details</returns>
+        Task<MultiSignaturesPendingResponse> GetMultiSignaturesPendingAsync(MultiSignaturesPendingRequest req);
+
+        /// <summary>
+        /// Gets multisignatures accounts details from remote node synchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesAccountsRequest with publickey</param>
+        /// <returns>MultiSignaturesAccountsRequest with account details</returns>
+        MultiSignaturesAccountsResponse GetMultiSignaturesAccounts(MultiSignaturesAccountsRequest req);
+
+        /// <summary>
+        /// Gets multisignatures accounts details from remote node asynchronously 
+        /// </summary>
+        /// <param name="req">MultiSignaturesAccountsRequest with publickey</param>
+        /// <returns>MultiSignaturesAccountsRequest with account details</returns>
+        Task<MultiSignaturesAccountsResponse> GetMultiSignaturesAccountsAsync(MultiSignaturesAccountsRequest req);
+
+        /// <summary>
+        /// Signs multisignatures synchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesSignRequest with secret, secondSecret, transactionId</param>
+        /// <returns>MultiSignaturesSignResponse with details</returns>
+        MultiSignaturesSignResponse SignMultiSignatures(MultiSignaturesSignRequest req);
+
+        /// <summary>
+        /// Signs multisignatures asynchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesSignRequest with secret, secondSecret, transactionId</param>
+        /// <returns>MultiSignaturesSignResponse with details</returns>
+        Task<MultiSignaturesSignResponse> SignMultiSignaturesAsync(MultiSignaturesSignRequest req);
+
+        /// <summary>
+        /// Adds multi signature synchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesAddRequest</param>
+        /// <returns>MultiSignaturesAddResponse</returns>
+        MultiSignaturesAddResponse AddMultiSignatures(MultiSignaturesAddRequest req);
+
+        /// <summary>
+        /// Adds multi signature asynchronously
+        /// </summary>
+        /// <param name="req">MultiSignaturesAddRequest</param>
+        /// <returns>MultiSignaturesAddResponse</returns>
+        Task<MultiSignaturesAddResponse> AddMultiSignaturesAsync(MultiSignaturesAddRequest req);
+        #endregion
     }
 }

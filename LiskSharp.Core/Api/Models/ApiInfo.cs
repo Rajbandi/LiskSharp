@@ -28,5 +28,6 @@ namespace LiskSharp.Core.Api.Models
         /// Port 
         /// </summary>
         public int? Port { get; set; }
+
     }
 }
