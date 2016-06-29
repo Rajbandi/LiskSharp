@@ -21,7 +21,7 @@ namespace LiskSharp.Tests
         {
             _api = new LiskNodeApi(new ApiInfo
             {
-                //Host = "yourhostip",
+                //Host=""
                 //Port = "port"
                 UseHttps = true
             });
