@@ -202,15 +202,3 @@ ILiskPeerApi  _api = new LiskPeerApi(new ApiInfo
  var response = await _api.GetPeerBlocksAsync();
  
 ```
-
-#### Donate 
-
-##### Bitcoin 
-
-1B7jF7NDfFSdToSiPvYWnHAxEUmNaMfYe 
-
-[![Bitcoin](http://i.imgur.com/3Cr4ymn.png)](http://i.imgur.com/3Cr4ymn.png)
-
-##### Lisk 
-
-10432128511901446740L
